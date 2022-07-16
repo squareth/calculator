@@ -40,7 +40,8 @@ function makeOperation(e) {
                 firstNumber = result;
                 result = "";
                 upperScreen.textContent = "";
-            } else if (firstNumber && operator && secondNumber && inputValue != "←" && inputValue != "." && (inputValue == "x" || inputValue == "÷" || inputValue == "+" || inputValue == "-")){
+            } else if (firstNumber && operator && secondNumber && inputValue != "←" && inputValue != "." 
+            && (inputValue == "x" || inputValue == "÷" || inputValue == "+" || inputValue == "-")){
                 calculateOperation();
                 firstNumber = result;
                 result = "";
@@ -194,7 +195,7 @@ function getLength(){
     const sNDecimals = secondNumber.toString().slice(sNDecPosition + 1);
     let longestNum;
     if (fNDecPosition == -1 && sNDecPosition == -1){
-        return 1;
+        return 2;
     } else if (fNDecPosition == -1){
         longestNum = sNDecimals;
     } else if (sNDecPosition == -1){

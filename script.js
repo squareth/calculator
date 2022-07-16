@@ -166,7 +166,7 @@ function calculateOperation(){
     }
 
     let longestNum = getLength();
-    result = result.toFixed(longestNum);
+    result = result.toFixed(longestNum + 1);
     result = parseFloat(result);
 
     upperScreen.textContent += " " + secondNumber + " = ";

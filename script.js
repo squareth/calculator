@@ -164,7 +164,12 @@ function calculateOperation(){
     result = result.toFixed(longestNum);
     result = parseFloat(result);
     upperScreen.textContent += " " + secondNumber + " = ";
-    lowerScreen.textContent = result;
+    if (operator == "÷" && secondNumber == "0"){
+        lowerScreen.textContent = "You can't do that!"
+        result = "";
+    } else {
+        lowerScreen.textContent = result;
+    }
     firstNumber = secondNumber = operator = "";
     if (result.toString().length >= 17){
         lowerScreen.style.fontSize = "36px";

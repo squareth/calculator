@@ -43,6 +43,7 @@ body {
     width: 90%;
     height: 20%;
     color: var(--lighter-color);
+    overflow: hidden;
 }
 
 #lower-screen {
@@ -73,12 +74,23 @@ body {
     color: var(--screen-color);
     background-color: var(--lighter-color);
     box-shadow: 5px 3px 3px var(--darker-color);
-    transition-duration: 0.5s;
+    transition-duration: 0.2s;
+}
+
+.button:hover {
+    background-color: var(--golden);
+    transform: scale(1.1);
+}
+
+.button:active {
+    background-color: var(--darker-color);
+    transform: scale(0.98);
 }
 
 #emptyspace {
     opacity: 0;
 }
+
 #zero {
     grid-column-start: 1;
     grid-column-end: 3;

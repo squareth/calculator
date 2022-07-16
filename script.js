@@ -1,4 +1,3 @@
-// Create an input listener,
 const buttons = document.querySelectorAll('button');
 buttons.forEach(function (item) {
     item.addEventListener('click', makeOperation);
@@ -8,36 +7,35 @@ window.addEventListener('keydown', makeOperation);
 
 const lowerScreen = document.querySelector("#lower-screen");
 const upperScreen = document.querySelector("#upper-screen");
-// Create variables for firstNumber, operator, secondNumber and result
+
 let firstNumber = "";
 let operator = "";
 let secondNumber ="";
 let result = "";
-// Input calls for function makeOperation
+
 function makeOperation(e) {
-    //function makeOperation checks input, 
+
     let inputValue;
+
     if(e.type == "keydown"){
         inputValue = e.key;
     } else {
         inputValue = e.target.textContent;
     }
+
     if(e.code == "Space") return;
     if(inputValue == "Enter") inputValue = "=";
     if(inputValue == "/") inputValue = "÷";
+
     if (isNaN(inputValue)) {
+        //This bit executes if the input isn't a number
         if(inputValue === "="){
 
-            console.log(inputValue)
             if (firstNumber && operator && secondNumber){
-                // if the user presses equal and there's value to every value,
-                // it resolves the operation.
-                //Prints result on lower-screen
                 calculateOperation();
             }
 
         } else if (inputValue){
-
             if (result){
                 firstNumber = result;
                 result = "";
@@ -48,7 +46,7 @@ function makeOperation(e) {
                 result = "";
                 upperScreen.textContent = ""
             }
-                // if it's an operator, it assigns value to operator
+
             if (inputValue == "x" || inputValue == "÷" || inputValue == "+" || inputValue == "-") {
                 assignOperator(inputValue);
 
@@ -78,6 +76,7 @@ function makeOperation(e) {
             } else if (inputValue == "."){
                 assignDecimals();
             } else {
+                //If the key is not defined we want the calculator to do nothing
                 return;
             }
 
@@ -93,7 +92,6 @@ function makeOperation(e) {
     } else {
         addSecondNumber(inputValue);
     }
-
 }
 
 function addFirstNumber(inputValue, isEmpty) {
@@ -107,8 +105,7 @@ function addFirstNumber(inputValue, isEmpty) {
         lowerScreen.textContent = firstNumber;
     } else {
         if (firstNumber.toString().length === 16) return;
-        // If it's another number, and there's no value to operator,
-        // it concatenates it to firstnumber
+
         firstNumber += inputValue;
         lowerScreen.textContent = firstNumber;
     }
@@ -116,15 +113,12 @@ function addFirstNumber(inputValue, isEmpty) {
 
 function addSecondNumber(inputValue){
     if (secondNumber === "" || secondNumber == 0 && !(secondNumber.toString().includes("."))){
-        //If it's another number, and there's value to operator,
-        // it assigns it to secondNumber
-        // prints second number in lower-screen and upper-screen
+
         secondNumber = inputValue;
         lowerScreen.textContent = secondNumber;
     } else {
         if (secondNumber.toString().length === 16) return;
-        //If it's another number, and there's value to every value,
-        // it concatenates to secondNumber
+
         secondNumber += inputValue;
         lowerScreen.textContent = secondNumber;
     }
@@ -165,29 +159,35 @@ function calculateOperation(){
             result = firstNumber / secondNumber;
             break;
         case "+":
-            console.log(firstNumber + " + " + secondNumber);
             result = parseFloat(firstNumber) + parseFloat(secondNumber);
             break;
         case "-":
             result = firstNumber - secondNumber;
     }
+
     let longestNum = getLength();
     result = result.toFixed(longestNum);
     result = parseFloat(result);
+
     upperScreen.textContent += " " + secondNumber + " = ";
+
     if (operator == "÷" && secondNumber == "0"){
         lowerScreen.textContent = "You can't do that!"
         result = "";
     } else {
         lowerScreen.textContent = result;
     }
+
     firstNumber = secondNumber = operator = "";
+
     if (result.toString().length >= 17){
         lowerScreen.style.fontSize = "36px";
     }
 }
 
 function getLength(){
+    //This function gets the length of the decimals on each number, to use as a "maximum"
+    //value in the result and try to fix the floating calculations of JS
     const fNDecPosition = firstNumber.toString().indexOf(".");
     const sNDecPosition = secondNumber.toString().indexOf(".");
     const fNDecimals = firstNumber.toString().slice(fNDecPosition + 1);
@@ -204,8 +204,4 @@ function getLength(){
         fNDecimals.length > sNDecimals.length ? longestNum = fNDecimals : longestNum = sNDecimals;
     }
     return longestNum.length;
-}
-
-function getKeyboardInput(e){
-    console.log(e.type);
 }

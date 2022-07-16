@@ -4,6 +4,8 @@ buttons.forEach(function (item) {
     item.addEventListener('click', makeOperation);
 })
 
+window.addEventListener('keydown', makeOperation);
+
 const lowerScreen = document.querySelector("#lower-screen");
 const upperScreen = document.querySelector("#upper-screen");
 // Create variables for firstNumber, operator, secondNumber and result
@@ -14,9 +16,16 @@ let result = "";
 // Input calls for function makeOperation
 function makeOperation(e) {
     //function makeOperation checks input, 
-    const inputValue = e.target.textContent;
+    let inputValue;
+    if(e.type == "keydown"){
+        inputValue = e.key;
+    } else {
+        inputValue = e.target.textContent;
+    }
+    if(e.code == "Space") return;
+    if(inputValue == "Enter") inputValue = "=";
+    if(inputValue == "/") inputValue = "÷";
     if (isNaN(inputValue)) {
-
         if(inputValue === "="){
 
             console.log(inputValue)
@@ -33,7 +42,7 @@ function makeOperation(e) {
                 firstNumber = result;
                 result = "";
                 upperScreen.textContent = "";
-            } else if (firstNumber && operator && secondNumber && inputValue != "←" && inputValue != "."){
+            } else if (firstNumber && operator && secondNumber && inputValue != "←" && inputValue != "." && (inputValue == "x" || inputValue == "÷" || inputValue == "+" || inputValue == "-")){
                 calculateOperation();
                 firstNumber = result;
                 result = "";
@@ -68,6 +77,8 @@ function makeOperation(e) {
                 }
             } else if (inputValue == "."){
                 assignDecimals();
+            } else {
+                return;
             }
 
             if (inputValue!= "←" && firstNumber != "") {
@@ -193,4 +204,8 @@ function getLength(){
         fNDecimals.length > sNDecimals.length ? longestNum = fNDecimals : longestNum = sNDecimals;
     }
     return longestNum.length;
+}
+
+function getKeyboardInput(e){
+    console.log(e.type);
 }

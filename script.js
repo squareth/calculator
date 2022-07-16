@@ -194,8 +194,7 @@ function getLength(){
     const sNDecimals = secondNumber.toString().slice(sNDecPosition + 1);
     let longestNum;
     if (fNDecPosition == -1 && sNDecPosition == -1){
-        longestNum = "";
-        return;
+        return 1;
     } else if (fNDecPosition == -1){
         longestNum = sNDecimals;
     } else if (sNDecPosition == -1){
